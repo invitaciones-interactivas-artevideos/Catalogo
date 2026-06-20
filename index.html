@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Invitaciones Interactivas</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #090909;
+  --panel: #141414;
+  --panel-soft: #1d1d1d;
+  --text: #f7f2ec;
+  --muted: #b9afa5;
+  --line: rgba(255,255,255,0.14);
+  --accent: #e50914;
+  --accent-2: #f0c36a;
+  --radius: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(229,9,20,0.18), transparent 32rem),
+    linear-gradient(180deg, #151515 0%, var(--bg) 36%, #050505 100%);
+  color: var(--text);
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.site-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(9,9,9,0.86);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+}
+
+.topbar-inner {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.brand-logo {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.brand-text {
+  min-width: 0;
+}
+
+.brand-name {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.brand-subtitle {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.whatsapp-link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.hero {
+  padding: clamp(48px, 8vw, 84px) 0 24px;
+}
+
+.hero-eyebrow {
+  color: var(--accent-2);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 860px;
+  margin: 14px 0 14px;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.25rem, 8vw, 5.2rem);
+  line-height: 0.98;
+}
+
+.hero p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.7;
+}
+
+.category-bar {
+  position: sticky;
+  top: 76px;
+  z-index: 18;
+  padding: 14px 0;
+  background: linear-gradient(180deg, rgba(9,9,9,0.96), rgba(9,9,9,0.76));
+  backdrop-filter: blur(14px);
+}
+
+.category-tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 2px;
+}
+
+.category-tab {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.category-tab.active {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.catalog {
+  padding: 24px 0 72px;
+}
+
+.catalog-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.catalog-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.catalog-count {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.invitation-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.invite-card {
+  min-width: 0;
+}
+
+.preview-link {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #242424, #101010);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 16px 38px rgba(0,0,0,0.35);
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.preview-link:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(229,9,20,0.8);
+  box-shadow: 0 22px 50px rgba(0,0,0,0.5);
+}
+
+.preview-link img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.preview-link:hover img {
+  transform: scale(1.06);
+}
+
+.preview-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.preview-link.image-error img {
+  display: none;
+}
+
+.preview-link.image-error .preview-fallback {
+  display: flex;
+}
+
+.category-chip {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.68);
+  color: #ffffff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card-info {
+  padding: 12px 2px 0;
+}
+
+.invite-title {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.35;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.demo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #111111;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.empty-state {
+  display: none;
+  padding: 44px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  text-align: center;
+}
+
+.footer {
+  padding: 36px 0 54px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+.footer strong {
+  color: var(--text);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 30;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 1.45rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.38);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+@media (max-width: 980px) {
+  .invitation-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .site-shell {
+    width: min(100% - 22px, 1180px);
+  }
+
+  .topbar-inner {
+    min-height: 70px;
+  }
+
+  .brand-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .whatsapp-link {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 0.72rem;
+  }
+
+  .category-bar {
+    top: 70px;
+  }
+
+  .invitation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .catalog-head {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 440px) {
+  .invitation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: 38px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="site-shell topbar-inner">
+    <div class="brand">
+      <img class="brand-logo" id="logo" src="logo.png" alt="Logo">
+      <div class="brand-text">
+        <span class="brand-name" id="brand-name"></span>
+        <span class="brand-subtitle">Invitaciones interactivas</span>
+      </div>
+    </div>
+    <a class="whatsapp-link" id="whatsapp-top" href="#" target="_blank" rel="noopener">Pedidos por Wpp 095090806</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="site-shell">
+      <div class="hero-eyebrow">Catálogo digital</div>
+      <h1>Elegí la invitación y mirá la demo en vivo.</h1>
+      <p>Modelos interactivos listos para adaptar con tus textos, fotos, música, ubicación, confirmación y detalles del evento.</p>
+    </div>
+  </section>
+
+  <nav class="category-bar" aria-label="Categorías">
+    <div class="site-shell">
+      <div class="category-tabs" id="category-tabs"></div>
+    </div>
+  </nav>
+
+  <section class="catalog" id="catalogo">
+    <div class="site-shell">
+      <div class="catalog-head">
+        <h2 class="catalog-title" id="catalog-title">Todas</h2>
+        <div class="catalog-count" id="catalog-count"></div>
+      </div>
+      <div class="invitation-grid" id="invitation-grid"></div>
+      <div class="empty-state" id="empty-state">Todavía no hay modelos cargados en esta categoría.</div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="site-shell">
+    <p><strong>Pedidos por Wpp 095090806</strong></p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Volver arriba">↑</button>
+
+<script>
+/* ==========================================================================
+   CONFIGURACIÓN FÁCIL
+   Subí este index.html, logo.png y las imágenes de vista previa al mismo
+   repositorio. Para agregar modelos, copiá un bloque dentro de "invitaciones".
+========================================================================== */
+const CONFIG = {
+  marca: "ARTEVIDEOS",
+  logo: "logo.png",
+  whatsappTexto: "Pedidos por Wpp 095090806",
+  whatsappLink: "https://wa.me/59895090806",
+
+  categorias: [
+    { id: "todas", nombre: "Todas" },
+    { id: "15", nombre: "15 años" },
+    { id: "bodas", nombre: "Bodas" },
+    { id: "infantiles", nombre: "Infantiles" }
+  ],
+
+  invitaciones: [
+    {
+      nombre: "15 Años Glam",
+      categoria: "15",
+      imagen: "demo-15-glam.jpg",
+      link: "https://tusitio.github.io/demo-15-glam/"
+    },
+    {
+      nombre: "15 Años Floral",
+      categoria: "15",
+      imagen: "demo-15-floral.jpg",
+      link: "https://tusitio.github.io/demo-15-floral/"
+    },
+    {
+      nombre: "Boda Clásica",
+      categoria: "bodas",
+      imagen: "demo-boda-clasica.jpg",
+      link: "https://tusitio.github.io/demo-boda-clasica/"
+    },
+    {
+      nombre: "Boda Elegante",
+      categoria: "bodas",
+      imagen: "demo-boda-elegante.jpg",
+      link: "https://tusitio.github.io/demo-boda-elegante/"
+    },
+    {
+      nombre: "Infantil Bosque",
+      categoria: "infantiles",
+      imagen: "demo-infantil-bosque.jpg",
+      link: "https://tusitio.github.io/demo-infantil-bosque/"
+    },
+    {
+      nombre: "Infantil Arcoiris",
+      categoria: "infantiles",
+      imagen: "demo-infantil-arcoiris.jpg",
+      link: "https://tusitio.github.io/demo-infantil-arcoiris/"
+    }
+  ]
+};
+
+const tabsEl = document.getElementById("category-tabs");
+const gridEl = document.getElementById("invitation-grid");
+const titleEl = document.getElementById("catalog-title");
+const countEl = document.getElementById("catalog-count");
+const emptyEl = document.getElementById("empty-state");
+const topBtn = document.getElementById("back-to-top");
+let categoriaActual = "todas";
+
+document.getElementById("brand-name").textContent = CONFIG.marca;
+document.getElementById("logo").src = CONFIG.logo;
+document.getElementById("whatsapp-top").textContent = CONFIG.whatsappTexto;
+document.getElementById("whatsapp-top").href = CONFIG.whatsappLink;
+
+function nombreCategoria(id) {
+  const categoria = CONFIG.categorias.find(item => item.id === id);
+  return categoria ? categoria.nombre : id;
+}
+
+function invitacionesFiltradas() {
+  if (categoriaActual === "todas") return CONFIG.invitaciones;
+  return CONFIG.invitaciones.filter(item => item.categoria === categoriaActual);
+}
+
+function crearTabs() {
+  tabsEl.innerHTML = "";
+  CONFIG.categorias.forEach(categoria => {
+    const boton = document.createElement("button");
+    boton.className = "category-tab";
+    boton.type = "button";
+    boton.textContent = categoria.nombre;
+    boton.dataset.category = categoria.id;
+    boton.addEventListener("click", () => {
+      categoriaActual = categoria.id;
+      renderCatalogo();
+      document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    tabsEl.appendChild(boton);
+  });
+}
+
+function crearTarjeta(item) {
+  const article = document.createElement("article");
+  article.className = "invite-card";
+  article.innerHTML = `
+    <a class="preview-link" href="${item.link}" target="_blank" rel="noopener" aria-label="Mirar demo de ${item.nombre}">
+      <span class="category-chip">${nombreCategoria(item.categoria)}</span>
+      <img src="${item.imagen}" alt="Vista previa de ${item.nombre}" loading="lazy">
+      <span class="preview-fallback">${item.nombre}</span>
+    </a>
+    <div class="card-info">
+      <h3 class="invite-title">${item.nombre}</h3>
+      <a class="demo-btn" href="${item.link}" target="_blank" rel="noopener">Mirar demo</a>
+    </div>
+  `;
+
+  const imagen = article.querySelector("img");
+  imagen.addEventListener("error", () => {
+    article.querySelector(".preview-link").classList.add("image-error");
+  });
+
+  return article;
+}
+
+function renderCatalogo() {
+  const items = invitacionesFiltradas();
+  gridEl.innerHTML = "";
+
+  document.querySelectorAll(".category-tab").forEach(tab => {
+    tab.classList.toggle("active", tab.dataset.category === categoriaActual);
+  });
+
+  titleEl.textContent = nombreCategoria(categoriaActual);
+  countEl.textContent = `${items.length} modelo${items.length === 1 ? "" : "s"} disponible${items.length === 1 ? "" : "s"}`;
+  emptyEl.style.display = items.length ? "none" : "block";
+
+  items.forEach(item => gridEl.appendChild(crearTarjeta(item)));
+}
+
+window.addEventListener("scroll", () => {
+  topBtn.classList.toggle("visible", window.scrollY > 500);
+});
+
+topBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+crearTabs();
+renderCatalogo();
+</script>
+</body>
+</html>
