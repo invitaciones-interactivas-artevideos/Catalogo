@@ -730,14 +730,14 @@ function crearTarjeta(item) {
   const article = document.createElement("article");
   article.className = "invite-card";
   article.innerHTML = `
-    <a class="preview-link" href="${item.link}" target="_blank" rel="noopener" aria-label="Mirar demo de ${item.nombre}">
+    <a class="preview-link" href="${item.link}" target="_blank" rel="noopener" aria-label="Probar demo de ${item.nombre}">
       <span class="category-chip">${nombreCategoria(item.categoria)}</span>
       <img src="${item.imagen}" alt="Vista previa de ${item.nombre}" loading="lazy">
       <span class="preview-fallback">${item.nombre}</span>
     </a>
     <div class="card-info">
       <h3 class="invite-title">${item.nombre}</h3>
-      <a class="demo-btn" href="${item.link}" target="_blank" rel="noopener">Mirar demo</a>
+      <a class="demo-btn" href="${item.link}" target="_blank" rel="noopener">Probar demo</a>
     </div>
   `;
 
