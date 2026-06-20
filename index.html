@@ -3,14 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catálogo de Invitaciones Interactivas web</title>
+<title>Catalogo de Invitaciones Interactivas web</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
+  /* COLORES FACILES DE CAMBIAR
+     Tambien podes cambiarlos abajo, dentro de CONFIG > colores. */
   --bg: #090909;
+  --bg-2: #151515;
   --panel: #141414;
   --panel-soft: #1d1d1d;
   --text: #f7f2ec;
@@ -18,6 +21,9 @@
   --line: rgba(255,255,255,0.14);
   --accent: #e50914;
   --accent-2: #f0c36a;
+  --button-text: #ffffff;
+  --light-button: #ffffff;
+  --light-button-text: #111111;
   --radius: 8px;
 }
 
@@ -35,8 +41,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(229,9,20,0.18), transparent 32rem),
-    linear-gradient(180deg, #151515 0%, var(--bg) 36%, #050505 100%);
+    radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 18%, transparent), transparent 32rem),
+    linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 36%, #050505 100%);
   color: var(--text);
   font-family: "Montserrat", sans-serif;
 }
@@ -54,27 +60,33 @@ a {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(9,9,9,0.86);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(18px);
 }
 
 .topbar-inner {
-  min-height: 76px;
+  min-height: 116px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 0;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
+  max-width: 100%;
   min-width: 0;
+  text-align: left;
 }
 
 .brand-logo {
+  flex: 0 0 auto;
   width: 54px;
   height: 54px;
   border-radius: 50%;
@@ -89,11 +101,14 @@ a {
 
 .brand-name {
   display: block;
+  max-width: min(76vw, 520px);
   font-family: "Playfair Display", serif;
-  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-size: clamp(1.45rem, 4vw, 2.15rem);
   font-weight: 700;
-  line-height: 1;
-  overflow-wrap: anywhere;
+  line-height: 1.05;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .brand-subtitle {
@@ -106,25 +121,40 @@ a {
   text-transform: uppercase;
 }
 
-.whatsapp-link {
+.top-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.top-link {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0 18px;
+  min-height: 42px;
+  padding: 0 16px;
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 999px;
   background: rgba(255,255,255,0.08);
   color: var(--text);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-decoration: none;
+  white-space: nowrap;
+}
+
+.top-link.primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--button-text);
 }
 
 .hero {
-  padding: clamp(48px, 8vw, 84px) 0 24px;
+  padding: clamp(42px, 7vw, 76px) 0 24px;
 }
 
 .hero-eyebrow {
@@ -139,8 +169,8 @@ a {
   max-width: 860px;
   margin: 14px 0 14px;
   font-family: "Playfair Display", serif;
-  font-size: clamp(2.25rem, 8vw, 5.2rem);
-  line-height: 0.98;
+  font-size: clamp(2.1rem, 7vw, 5rem);
+  line-height: 1;
 }
 
 .hero p {
@@ -153,10 +183,10 @@ a {
 
 .category-bar {
   position: sticky;
-  top: 76px;
+  top: 116px;
   z-index: 18;
   padding: 14px 0;
-  background: linear-gradient(180deg, rgba(9,9,9,0.96), rgba(9,9,9,0.76));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 96%, transparent), color-mix(in srgb, var(--bg) 78%, transparent));
   backdrop-filter: blur(14px);
 }
 
@@ -187,6 +217,7 @@ a {
 .category-tab.active {
   border-color: var(--accent);
   background: var(--accent);
+  color: var(--button-text);
 }
 
 .catalog {
@@ -215,8 +246,9 @@ a {
 
 .invitation-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 18px;
+  align-items: start;
 }
 
 .invite-card {
@@ -229,7 +261,7 @@ a {
   aspect-ratio: 9 / 16;
   overflow: hidden;
   border-radius: var(--radius);
-  background: linear-gradient(135deg, #242424, #101010);
+  background: linear-gradient(135deg, var(--panel-soft), var(--panel));
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 16px 38px rgba(0,0,0,0.35);
   text-decoration: none;
@@ -238,7 +270,7 @@ a {
 
 .preview-link:hover {
   transform: translateY(-6px) scale(1.015);
-  border-color: rgba(229,9,20,0.8);
+  border-color: color-mix(in srgb, var(--accent) 80%, transparent);
   box-shadow: 0 22px 50px rgba(0,0,0,0.5);
 }
 
@@ -299,7 +331,7 @@ a {
 .invite-title {
   margin: 0 0 10px;
   color: var(--text);
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   line-height: 1.35;
   font-weight: 800;
   overflow-wrap: anywhere;
@@ -309,12 +341,12 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
-  padding: 0 14px;
+  min-height: 36px;
+  padding: 0 12px;
   border-radius: 999px;
-  background: #ffffff;
-  color: #111111;
-  font-size: 0.72rem;
+  background: var(--light-button);
+  color: var(--light-button-text);
+  font-size: 0.68rem;
   font-weight: 900;
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -342,6 +374,20 @@ a {
   color: var(--text);
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: var(--accent-2);
+  font-weight: 800;
+  text-decoration: none;
+}
+
 .back-to-top {
   position: fixed;
   right: 18px;
@@ -352,7 +398,7 @@ a {
   border: none;
   border-radius: 50%;
   background: var(--accent);
-  color: #ffffff;
+  color: var(--button-text);
   font-size: 1.45rem;
   font-weight: 900;
   cursor: pointer;
@@ -369,9 +415,9 @@ a {
   transform: translateY(0);
 }
 
-@media (max-width: 980px) {
+@media (min-width: 1180px) {
   .invitation-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -381,7 +427,7 @@ a {
   }
 
   .topbar-inner {
-    min-height: 70px;
+    min-height: 110px;
   }
 
   .brand-logo {
@@ -389,23 +435,28 @@ a {
     height: 46px;
   }
 
-  .brand-subtitle {
-    display: none;
+  .brand-name {
+    font-size: clamp(1.25rem, 7vw, 1.75rem);
   }
 
-  .whatsapp-link {
-    min-height: 38px;
+  .brand-subtitle {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .top-link {
+    min-height: 36px;
     padding: 0 12px;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
   }
 
   .category-bar {
-    top: 70px;
+    top: 110px;
   }
 
   .invitation-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+    gap: 12px;
   }
 
   .catalog-head {
@@ -414,13 +465,42 @@ a {
   }
 }
 
-@media (max-width: 440px) {
-  .invitation-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 380px) {
+  .site-shell {
+    width: min(100% - 16px, 1180px);
+  }
+
+  .topbar-inner {
+    min-height: 126px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .category-bar {
+    top: 126px;
   }
 
   .hero {
-    padding-top: 38px;
+    padding-top: 34px;
+  }
+
+  .invite-title {
+    font-size: 0.82rem;
+  }
+
+  .demo-btn {
+    width: 100%;
   }
 }
 </style>
@@ -436,20 +516,23 @@ a {
         <span class="brand-subtitle">Invitaciones interactivas</span>
       </div>
     </div>
-    <a class="whatsapp-link" id="whatsapp-top" href="#" target="_blank" rel="noopener">Pedidos por Wpp 095090806</a>
+    <div class="top-actions">
+      <a class="top-link primary" id="whatsapp-top" href="#" target="_blank" rel="noopener">Pedidos por Whatsapp</a>
+      <a class="top-link" id="instagram-top" href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
   </div>
 </header>
 
 <main>
   <section class="hero">
     <div class="site-shell">
-      <div class="hero-eyebrow">Catálogo digital</div>
-      <h1>Elegí la invitación y probá la demo en vivo.</h1>
-      <p>Modelos interactivos listos para adaptar con tus textos, fotos, música, ubicación, confirmación y detalles del evento.</p>
+      <div class="hero-eyebrow">Catalogo digital</div>
+      <h1>Elegi la invitacion y proba la demo en vivo.</h1>
+      <p>Modelos interactivos listos para adaptar con tus textos, fotos, musica, ubicacion, confirmacion y detalles del evento.</p>
     </div>
   </section>
 
-  <nav class="category-bar" aria-label="Categorías">
+  <nav class="category-bar" aria-label="Categorias">
     <div class="site-shell">
       <div class="category-tabs" id="category-tabs"></div>
     </div>
@@ -462,60 +545,79 @@ a {
         <div class="catalog-count" id="catalog-count"></div>
       </div>
       <div class="invitation-grid" id="invitation-grid"></div>
-      <div class="empty-state" id="empty-state">Todavía no hay modelos cargados en esta categoría.</div>
+      <div class="empty-state" id="empty-state">Todavia no hay modelos cargados en esta categoria.</div>
     </div>
   </section>
 </main>
 
 <footer class="footer">
   <div class="site-shell">
-    <p><strong>Pedidos por Wpp 095090806</strong></p>
+    <p><strong id="footer-whatsapp">Pedidos por Whatsapp</strong></p>
+    <div class="footer-links">
+      <a id="instagram-footer" href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
   </div>
 </footer>
 
-<button class="back-to-top" id="back-to-top" type="button" aria-label="Volver arriba">↑</button>
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Volver arriba">&uarr;</button>
 
 <script>
 /* ==========================================================================
-   CONFIGURACIÓN FÁCIL
-   Subí este index.html, logo.png y las imágenes de vista previa al mismo
-   repositorio. Para agregar modelos, copiá un bloque dentro de "invitaciones".
+   CONFIGURACION FACIL
+   Cambia tu marca, links, colores e invitaciones desde este bloque.
 ========================================================================== */
 const CONFIG = {
   marca: "ARTEVIDEOS",
   logo: "logo.png",
-  whatsappTexto: "Pedidos por Wpp 095090806",
+
+  whatsappTexto: "Pedidos por Whatsapp 095090806",
   whatsappLink: "https://wa.me/59895090806",
+
+  // Cambia este link por tu Instagram. Ejemplo:
+  // instagramLink: "https://www.instagram.com/tu_usuario/",
+  instagramTexto: "Instagram",
+  instagramLink: "https://www.instagram.com/",
+
+  colores: {
+    fondo: "#090909",
+    fondoSuperior: "#151515",
+    tarjeta: "#141414",
+    tarjetaSuave: "#1d1d1d",
+    texto: "#f7f2ec",
+    textoSuave: "#b9afa5",
+    principal: "#e50914",
+    secundario: "#f0c36a",
+    textoBoton: "#ffffff"
+  },
 
   categorias: [
     { id: "todas", nombre: "Todas" },
-    { id: "15", nombre: "15 años" },
+    { id: "15", nombre: "15 anos" },
     { id: "bodas", nombre: "Bodas" },
     { id: "infantiles", nombre: "Infantiles" }
   ],
 
   invitaciones: [
     {
-      nombre: "15 Años Mariposas-1",
+      nombre: "15 Anos Mariposas-1",
       categoria: "15",
       imagen: "15 mariposas doradas.png",
       link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo-3-mariposas-doradas/"
     },
     {
-      nombre: "15 Años Mariposas-2",
+      nombre: "15 Anos Mariposas-2",
       categoria: "15",
       imagen: "15 mariposas violetas.png",
       link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo-5-mariposas-fondo-azul-2/l/"
     },
     {
-      
-      nombre: "15 Años Mariposas-3",
+      nombre: "15 Anos Mariposas-3",
       categoria: "15",
       imagen: "15 mariposas celestres.png",
       link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo-4-mariposas-celeste-amarillas/"
     },
     {
-      nombre: "Boda Clásica",
+      nombre: "Boda Clasica",
       categoria: "bodas",
       imagen: "demo-boda-clasica.jpg",
       link: "https://tusitio.github.io/demo-boda-clasica/"
@@ -549,10 +651,35 @@ const emptyEl = document.getElementById("empty-state");
 const topBtn = document.getElementById("back-to-top");
 let categoriaActual = "todas";
 
+function aplicarColores() {
+  const root = document.documentElement;
+  const colores = CONFIG.colores || {};
+  const variables = {
+    fondo: "--bg",
+    fondoSuperior: "--bg-2",
+    tarjeta: "--panel",
+    tarjetaSuave: "--panel-soft",
+    texto: "--text",
+    textoSuave: "--muted",
+    principal: "--accent",
+    secundario: "--accent-2",
+    textoBoton: "--button-text"
+  };
+
+  Object.entries(variables).forEach(([nombre, variable]) => {
+    if (colores[nombre]) root.style.setProperty(variable, colores[nombre]);
+  });
+}
+
 document.getElementById("brand-name").textContent = CONFIG.marca;
 document.getElementById("logo").src = CONFIG.logo;
 document.getElementById("whatsapp-top").textContent = CONFIG.whatsappTexto;
 document.getElementById("whatsapp-top").href = CONFIG.whatsappLink;
+document.getElementById("footer-whatsapp").textContent = CONFIG.whatsappTexto;
+document.getElementById("instagram-top").textContent = CONFIG.instagramTexto;
+document.getElementById("instagram-top").href = CONFIG.instagramLink;
+document.getElementById("instagram-footer").textContent = CONFIG.instagramTexto;
+document.getElementById("instagram-footer").href = CONFIG.instagramLink;
 
 function nombreCategoria(id) {
   const categoria = CONFIG.categorias.find(item => item.id === id);
@@ -627,6 +754,7 @@ topBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+aplicarColores();
 crearTabs();
 renderCatalogo();
 </script>
