@@ -262,8 +262,10 @@ a {
   overflow: hidden;
   border-radius: var(--radius);
   background: linear-gradient(135deg, var(--panel-soft), var(--panel));
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 16px 38px rgba(0,0,0,0.35);
+  .preview-link {
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
   text-decoration: none;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
@@ -579,16 +581,16 @@ const CONFIG = {
   instagramLink: "https://www.instagram.com/invitaciones_artevideos/",
 
   colores: {
-    fondo: "#090909",
-    fondoSuperior: "#151515",
-    tarjeta: "#141414",
-    tarjetaSuave: "#1d1d1d",
-    texto: "#f7f2ec",
-    textoSuave: "#b9afa5",
-    principal: "#e50914",
-    secundario: "#f0c36a",
-    textoBoton: "#ffffff"
-  },
+  fondo: "#f8f4f1",
+  fondoSuperior: "#f4e7ea",
+  tarjeta: "#ffffff",
+  tarjetaSuave: "#faf7f5",
+  texto: "#2d2426",
+  textoSuave: "#6f5f63",
+  principal: "#d27a8c",
+  secundario: "#c89b5e",
+  textoBoton: "#ffffff"
+},
 
   categorias: [
     { id: "todas", nombre: "Todas" },
