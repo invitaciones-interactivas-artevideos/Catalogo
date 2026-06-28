@@ -1,1146 +1,806 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#071d4b">
-  <title>Invitación Digital Premium</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Invitaciones Interactivas web</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Allura&family=Cinzel:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500&family=Great+Vibes&family=Jost:wght@300;400;500&family=Montserrat:wght@300;400;500;600&family=Nunito:wght@300;400;500&family=Parisienne&family=Playfair+Display:wght@300;400;500&family=Poppins:wght@300;400;500&family=Quicksand:wght@300;400;500&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg-1: #06173c;
-      --bg-2: #0d3c78;
-      --bg-3: #bfeeff;
-      --panel: rgba(255, 255, 255, 0.11);
-      --panel-border: rgba(255, 255, 255, 0.22);
-      --accent: #bfeeff;
-      --accent-2: #79cfff;
-      --title-color: #eaf9ff;
-      --text-color: #f5fbff;
-      --muted-color: rgba(245, 251, 255, 0.78);
-      --button-text: #06214f;
-      --title-font: "Cinzel", serif;
-      --body-font: "Raleway", sans-serif;
-      --title-size: 2.65rem;
-      --body-size: 1.18rem;
-      --section-padding: 6.5rem;
-      --title-gap: 1.6rem;
-      --text-button-gap: 2rem;
-      --cover-position-pc: center 45%;
-      --cover-position-mobile: center 50%;
-      --radius: 8px;
-    }
+<style>
+:root {
+  /* COLORES FACILES DE CAMBIAR
+     Tambien podes cambiarlos abajo, dentro de CONFIG > colores. */
+  --bg: #090909;
+  --bg-2: #151515;
+  --panel: #141414;
+  --panel-soft: #1d1d1d;
+  --text: #f7f2ec;
+  --muted: #b9afa5;
+  --line: rgba(255,255,255,0.14);
+  --accent: #e50914;
+  --accent-2: #f0c36a;
+  --button-text: #ffffff;
+  --light-button: #ffffff;
+  --light-button-text: #111111;
+  --radius: 8px;
+}
 
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: #06173c;
-      color: var(--text-color);
-      font-family: var(--body-font);
-      text-align: center;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(191, 238, 255, 0.26), transparent 28rem),
-        radial-gradient(circle at 85% 18%, rgba(82, 169, 255, 0.22), transparent 24rem),
-        linear-gradient(145deg, #041234 0%, #082a63 42%, #0b78b6 100%);
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 68px 68px;
-      mask-image: linear-gradient(to bottom, transparent, black 16%, black 84%, transparent);
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--accent) 18%, transparent), transparent 32rem),
+    linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 36%, #050505 100%);
+  color: var(--text);
+  font-family: "Montserrat", sans-serif;
+}
 
-    a { color: inherit; }
-    img, video { max-width: 100%; display: block; }
-    button, a.btn { -webkit-tap-highlight-color: transparent; }
+a {
+  color: inherit;
+}
 
-    .skip-link {
-      position: fixed;
-      left: 1rem;
-      top: 1rem;
-      transform: translateY(-150%);
-      z-index: 30;
-      background: #fff;
-      color: #052059;
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius);
-    }
-    .skip-link:focus { transform: none; }
+.site-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
 
-    #music-btn {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      z-index: 20;
-      width: 48px;
-      height: 48px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 50%;
-      background: rgba(5, 21, 54, 0.56);
-      color: #fff;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
-      backdrop-filter: blur(14px);
-      cursor: pointer;
-    }
-    #music-btn[hidden] { display: none; }
-    #music-btn.is-playing { color: var(--accent); }
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+}
 
-    #toast {
-      position: fixed;
-      left: 50%;
-      bottom: 1.25rem;
-      z-index: 40;
-      transform: translate(-50%, 150%);
-      padding: 0.85rem 1.1rem;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius);
-      background: rgba(4, 18, 52, 0.88);
-      color: #fff;
-      opacity: 0;
-      transition: 0.25s ease;
-      backdrop-filter: blur(12px);
-    }
-    #toast.show {
-      transform: translate(-50%, 0);
-      opacity: 1;
-    }
+.topbar-inner {
+  min-height: 116px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 0;
+}
 
-    #cover {
-      position: relative;
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      isolation: isolate;
-      padding: 5rem 1.5rem 4rem;
-    }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  max-width: 100%;
+  min-width: 0;
+  text-align: left;
+}
 
-    #cover-bg, #cover-video, .cover-fallback, #cover-overlay {
-      position: absolute;
-      inset: 0;
-    }
+.brand-logo {
+  flex: 0 0 auto;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid rgba(255,255,255,0.2);
+}
 
-    #cover-bg {
-      z-index: -5;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: var(--cover-position-mobile);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    #cover-bg.is-loaded { opacity: 1; }
+.brand-text {
+  min-width: 0;
+}
 
-    #cover-video {
-      z-index: -4;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-    #cover-video.is-ready { display: block; }
+.brand-name {
+  display: block;
+  max-width: min(76vw, 520px);
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.45rem, 4vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.05;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-    .cover-fallback {
-      z-index: -6;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(255,255,255,0.3), transparent 14rem),
-        radial-gradient(circle at 18% 72%, rgba(111, 206, 255, 0.35), transparent 22rem),
-        linear-gradient(145deg, #041237 0%, #0a3878 54%, #9fe9ff 140%);
-    }
+.brand-subtitle {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-    .cover-fallback::before,
-    .cover-fallback::after {
-      content: "";
-      position: absolute;
-      inset: auto;
-      pointer-events: none;
-      border: 1px solid rgba(255,255,255,0.2);
-      transform: rotate(-8deg);
-    }
-    .cover-fallback::before {
-      width: min(70vw, 620px);
-      height: min(70vw, 620px);
-      left: -12rem;
-      top: -8rem;
-      border-radius: 50%;
-    }
-    .cover-fallback::after {
-      width: min(78vw, 720px);
-      height: min(78vw, 720px);
-      right: -18rem;
-      bottom: -16rem;
-      border-radius: 50%;
-    }
+.top-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
-    #cover-overlay {
-      z-index: -1;
-      background:
-        linear-gradient(to bottom, rgba(2,9,29,0.25), rgba(2,9,29,0.72)),
-        radial-gradient(circle at 50% 48%, transparent 0, rgba(2,9,29,0.28) 72%);
-    }
+.top-link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+}
 
-    #cover-content {
-      width: min(94vw, 820px);
-      position: relative;
-      display: grid;
-      justify-items: center;
-      gap: 1rem;
-      padding: clamp(1rem, 3vw, 2rem);
-      text-align: center;
-      transform: translate(var(--cover-x, 0), var(--cover-y, 0));
-    }
+.top-link.primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--button-text);
+}
 
-    .cover-kicker {
-      margin: 0;
-      color: rgba(255,255,255,0.86);
-      font-family: var(--body-font);
-      font-size: clamp(0.82rem, 2vw, 1rem);
-      font-weight: 500;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-    }
+.hero {
+  padding: clamp(42px, 7vw, 76px) 0 24px;
+}
 
-    #cover-title {
-      margin: 0;
-      color: var(--title-color);
-      font-family: var(--title-font);
-      font-size: clamp(3.6rem, 12vw, 7.8rem);
-      font-weight: 300;
-      line-height: 0.95;
-      text-wrap: balance;
-      text-shadow: 0 16px 42px rgba(0,0,0,0.34);
-    }
+.hero-eyebrow {
+  color: var(--accent-2);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
 
-    #cover-date {
-      margin: 0;
-      color: rgba(255,255,255,0.9);
-      font-size: clamp(1rem, 2.6vw, 1.35rem);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-wrap: balance;
-    }
+.hero h1 {
+  max-width: 860px;
+  margin: 14px 0 14px;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.1rem, 7vw, 5rem);
+  line-height: 1;
+}
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0.95rem 1.45rem;
-      margin-top: var(--text-button-gap);
-      border: 1px solid rgba(255,255,255,0.45);
-      border-radius: 999px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.82), rgba(191,238,255,0.62)),
-        linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: var(--button-text) !important;
-      font-family: var(--body-font);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 18px 34px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.8);
-      transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
-    }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 44px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.8);
-    }
-    .btn:focus-visible {
-      outline: 3px solid rgba(255,255,255,0.8);
-      outline-offset: 4px;
-    }
+.hero p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  line-height: 1.7;
+}
 
-    .scroll-arrow {
-      position: absolute;
-      left: 50%;
-      bottom: 1.5rem;
-      width: 32px;
-      height: 32px;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.82);
-      animation: float 2.4s ease-in-out infinite;
-    }
+.category-bar {
+  position: sticky;
+  top: 116px;
+  z-index: 18;
+  padding: 14px 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 96%, transparent), color-mix(in srgb, var(--bg) 78%, transparent));
+  backdrop-filter: blur(14px);
+}
 
-    @keyframes float {
-      0%, 100% { transform: translate(-50%, 0); }
-      50% { transform: translate(-50%, -10px); }
-    }
+.category-tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 2px;
+}
 
-    main { position: relative; overflow: hidden; }
+.category-tab {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
 
-    section {
-      position: relative;
-      padding: var(--section-padding) 1.25rem;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    section:nth-of-type(odd) {
-      background:
-        radial-gradient(circle at 16% 12%, rgba(191,238,255,0.20), transparent 24rem),
-        linear-gradient(155deg, var(--bg-1), #09245a 52%, #0d3d78);
-    }
-    section:nth-of-type(even) {
-      background:
-        radial-gradient(circle at 84% 10%, rgba(255,255,255,0.20), transparent 20rem),
-        linear-gradient(155deg, #0a3270, var(--bg-2) 55%, #6dcced 130%);
-    }
+.category-tab.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--button-text);
+}
 
-    .section-inner {
-      width: min(920px, 100%);
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
+.catalog {
+  padding: 24px 0 72px;
+}
 
-    .icon-container {
-      width: 54px;
-      height: 54px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto var(--title-gap);
-      color: var(--accent);
-      opacity: 0.95;
-      filter: drop-shadow(0 12px 22px rgba(0,0,0,0.22));
-    }
-    .icon-container svg { width: 100%; height: 100%; }
+.catalog-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
 
-    h2 {
-      margin: 0 0 var(--title-gap);
-      color: var(--title-color);
-      font-family: var(--title-font);
-      font-size: var(--title-size);
-      font-weight: 300;
-      line-height: 1.1;
-      text-wrap: balance;
-    }
+.catalog-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.75rem);
+  line-height: 1.2;
+}
 
-    h3 {
-      margin: 0 0 0.75rem;
-      color: var(--title-color);
-      font-family: var(--title-font);
-      font-size: 1.35rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+.catalog-count {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
 
-    p {
-      margin: 0 auto;
-      color: var(--text-color);
-      font-size: var(--body-size);
-      text-wrap: pretty;
-    }
+.invitation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
 
-    .glass {
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
-      box-shadow: 0 22px 70px rgba(0,0,0,0.18);
-      backdrop-filter: blur(16px);
-    }
+.invite-card {
+  min-width: 0;
+}
 
-    .countdown-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.75rem;
-      width: min(720px, 100%);
-      margin: 0 auto;
-    }
+.preview-link {
+  position: relative;
+  display: block;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--panel-soft), var(--panel));
+  .preview-link {
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+  text-decoration: none;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
 
-    .cd-item {
-      min-height: 112px;
-      display: grid;
-      align-content: center;
-      gap: 0.25rem;
-      padding: 1rem 0.6rem;
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,0.12);
-    }
-    .cd-num {
-      color: var(--accent);
-      font-family: var(--title-font);
-      font-size: clamp(2rem, 6vw, 3.3rem);
-      line-height: 1;
-    }
-    .cd-lab {
-      color: rgba(255,255,255,0.78);
-      font-size: 0.74rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
+.preview-link:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: color-mix(in srgb, var(--accent) 80%, transparent);
+  box-shadow: 0 22px 50px rgba(0,0,0,0.5);
+}
 
-    .event-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-    .event-card {
-      padding: 1.4rem;
-      min-height: 260px;
-      display: grid;
-      align-content: center;
-    }
-    .event-card p { font-size: 1rem; color: var(--muted-color); }
+.preview-link img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
 
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-      gap: 0.8rem;
-      margin-top: 0.4rem;
-    }
-    .gallery-item {
-      aspect-ratio: 4 / 5;
-      border: 0;
-      border-radius: var(--radius);
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04)),
-        radial-gradient(circle at 50% 30%, rgba(191,238,255,0.25), transparent 55%);
-      cursor: pointer;
-      padding: 0;
-      box-shadow: 0 18px 34px rgba(0,0,0,0.18);
-    }
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease, opacity 0.3s ease;
-    }
-    .gallery-item:hover img { transform: scale(1.05); }
-    .gallery-placeholder {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      place-items: center;
-      padding: 1rem;
-      color: rgba(255,255,255,0.76);
-      font-size: 0.76rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
+.preview-link:hover img {
+  transform: scale(1.06);
+}
 
-    .closing-image {
-      width: min(260px, 72vw);
-      margin: 2rem auto 0;
-      border-radius: var(--radius);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.22);
-    }
+.preview-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-    .ornament {
-      position: absolute;
-      z-index: 0;
-      pointer-events: none;
-      color: var(--accent);
-      opacity: 0.14;
-      filter: drop-shadow(0 20px 35px rgba(0,0,0,0.18));
-    }
-    .ornament svg { width: 100%; height: 100%; }
-    .orn-top-left { top: -58px; left: -52px; }
-    .orn-top-right { top: -58px; right: -52px; transform: scaleX(-1); }
-    .orn-bottom-left { bottom: -58px; left: -52px; transform: scaleY(-1); }
-    .orn-bottom-right { bottom: -58px; right: -52px; transform: scale(-1); }
+.preview-link.image-error img {
+  display: none;
+}
 
-    .modal, #lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 35;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      background: rgba(2, 8, 24, 0.74);
-      backdrop-filter: blur(14px);
-    }
-    .modal.open, #lightbox.open { display: flex; }
-    .modal-content {
-      position: relative;
-      width: min(480px, 100%);
-      padding: 2rem;
-      color: #fff;
-      text-align: left;
-    }
-    .modal-content .btn { width: 100%; margin-top: 1rem; }
-    .data-row {
-      display: grid;
-      gap: 0.15rem;
-      padding: 0.8rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.14);
-    }
-    .data-row:last-child { border-bottom: 0; }
-    .data-label {
-      color: rgba(255,255,255,0.62);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-    .data-value { overflow-wrap: anywhere; }
-    .close-btn {
-      position: absolute;
-      right: 1rem;
-      top: 0.75rem;
-      border: 0;
-      background: transparent;
-      color: #fff;
-      font-size: 2rem;
-      line-height: 1;
-      cursor: pointer;
-    }
-    #lightbox img {
-      max-height: 88vh;
-      max-width: 92vw;
-      border-radius: var(--radius);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.42);
-      object-fit: contain;
-    }
+.preview-link.image-error .preview-fallback {
+  display: flex;
+}
 
-    @media (min-width: 768px) {
-      #cover-bg { background-position: var(--cover-position-pc); }
-    }
+.category-chip {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.68);
+  color: #ffffff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 
-    @media (max-width: 720px) {
-      :root {
-        --section-padding: 5rem;
-        --title-size: 2.25rem;
-        --body-size: 1.04rem;
-      }
-      #cover-content { transform: translate(var(--cover-x-mobile, 0), var(--cover-y-mobile, 0)); }
-      .countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .btn { width: min(100%, 310px); }
-    }
+.card-info {
+  padding: 12px 2px 0;
+}
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
+.invite-title {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.demo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--light-button);
+  color: var(--light-button-text);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.empty-state {
+  display: none;
+  padding: 44px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  text-align: center;
+}
+
+.footer {
+  padding: 36px 0 54px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+.footer strong {
+  color: var(--text);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: var(--accent-2);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.back-to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 30;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--button-text);
+  font-size: 1.45rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.38);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+@media (min-width: 1180px) {
+  .invitation-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .site-shell {
+    width: min(100% - 22px, 1180px);
+  }
+
+  .topbar-inner {
+    min-height: 110px;
+  }
+
+  .brand-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .brand-name {
+    font-size: clamp(1.25rem, 7vw, 1.75rem);
+  }
+
+  .brand-subtitle {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .top-link {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 0.7rem;
+  }
+
+  .category-bar {
+    top: 110px;
+  }
+
+  .invitation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .catalog-head {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-shell {
+    width: min(100% - 16px, 1180px);
+  }
+
+  .topbar-inner {
+    min-height: 126px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .category-bar {
+    top: 126px;
+  }
+
+  .hero {
+    padding-top: 34px;
+  }
+
+  .invite-title {
+    font-size: 0.82rem;
+  }
+
+  .demo-btn {
+    width: 100%;
+  }
+}
+</style>
 </head>
 <body>
-  <a class="skip-link" href="#historia">Saltar a la invitación</a>
-  <div id="toast" role="status" aria-live="polite"></div>
 
-  <button id="music-btn" type="button" aria-label="Activar o pausar música">
-    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-  </button>
-  <audio id="bg-music" preload="none" loop></audio>
-
-  <header id="cover">
-    <div class="cover-fallback" aria-hidden="true"></div>
-    <div id="cover-bg" aria-hidden="true"></div>
-    <video id="cover-video" muted loop playsinline aria-hidden="true"></video>
-    <div id="cover-overlay" aria-hidden="true"></div>
-    <div id="cover-content">
-      <p id="cover-kicker" class="cover-kicker"></p>
-      <h1 id="cover-title"></h1>
-      <p id="cover-date"></p>
-      <a id="cover-btn" class="btn" href="#historia"></a>
+<header class="topbar">
+  <div class="site-shell topbar-inner">
+    <div class="brand">
+      <img class="brand-logo" id="logo" src="logo.png" alt="Logo">
+      <div class="brand-text">
+        <span class="brand-name" id="brand-name"></span>
+        <span class="brand-subtitle">Invitaciones interactivas</span>
+      </div>
     </div>
-    <div class="scroll-arrow" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-    </div>
-  </header>
-
-  <main id="main-content"></main>
-
-  <div id="gift-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="gift-title">
-    <div class="modal-content glass">
-      <button class="close-btn" type="button" aria-label="Cerrar">&times;</button>
-      <h2 id="gift-title" style="font-size:2rem; margin-bottom:1rem;"></h2>
-      <div id="gift-data"></div>
-      <button id="copy-account" class="btn" type="button">Copiar cuenta</button>
+    <div class="top-actions">
+      <a class="top-link primary" id="whatsapp-top" href="#" target="_blank" rel="noopener">Pedidos por Whatsapp</a>
+      <a class="top-link" id="instagram-top" href="#" target="_blank" rel="noopener">Instagram</a>
     </div>
   </div>
+</header>
 
-  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
-    <button class="close-btn" type="button" aria-label="Cerrar">&times;</button>
-    <img alt="">
+<main>
+  <section class="hero">
+    <div class="site-shell">
+      <div class="hero-eyebrow">Catalogo digital</div>
+      <h1>Elegí la invitación y probá la demo en vivo.</h1>
+      <p>Invitaciones Interactivas Web, únicas y originales.<br>INVITACIÓN ESTANDAR COMPLETA INCLUYE: Música a elección, cuenta regresiva, Ubicación GPS, Galeria de 4 fotos, Confirmación de asistencia por formulario (tendrás un listado de las personas que asistirán y las posibles restricciones alimenticias). Datos para el regalo (colectivo o cta bancaria).<br>ADEMÁS PODRÁS ADICIONAR: Galeria de fotos ampliada: Incluye hasta 12 fotos. Álbum de fotos de la fiesta: tus invitados podrán compartir sus mejores fotos contigo. Play list: Tus invitados podrán sugerir la canción que no puede faltar en tu cumple (lista de Spotyfy o formulario). Y cualquier otro dato o info que quieras agregar a tu invitación.</p>
+    </div>
+  </section>
+
+  <nav class="category-bar" aria-label="Categorias">
+    <div class="site-shell">
+      <div class="category-tabs" id="category-tabs"></div>
+    </div>
+  </nav>
+
+  <section class="catalog" id="catalogo">
+    <div class="site-shell">
+      <div class="catalog-head">
+        <h2 class="catalog-title" id="catalog-title">Todas</h2>
+        <div class="catalog-count" id="catalog-count"></div>
+      </div>
+      <div class="invitation-grid" id="invitation-grid"></div>
+      <div class="empty-state" id="empty-state">Todavia no hay modelos cargados en esta categoria.</div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="site-shell">
+    <p><strong id="footer-whatsapp">Pedidos por Whatsapp</strong></p>
+    <div class="footer-links">
+      <a id="instagram-footer" href="#" target="_blank" rel="noopener">Instagram</a>
+    </div>
   </div>
+</footer>
 
-  <script>
-    /*
-      ===============================================================
-      CONFIGURACIÓN FÁCIL
-      Edita solo los valores de este bloque. No hace falta tocar el
-      resto del archivo. Para ocultar una sección, cambia mostrar a false.
-      ===============================================================
-    */
-    const CONFIG = {
-      global: {
-        nombres: "",
-        frase: "",
-        fecha: "",
-        fechaCuenta: "2026-11-20T21:00:00",
-        musica: "musica.mp3",
-        mostrarMusica: true
-      },
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Volver arriba">&uarr;</button>
 
-      portada: {
-        tipo: "video", // auto, foto, video o degradado
-        foto: "cover.jpg",
-        video: "portada.mp4",
-        posicionFotoPC: "center 42%",
-        posicionFotoMovil: "center 50%",
-        oscurecer: "linear-gradient(to bottom, rgba(2,9,28,0.18), rgba(2,9,28,0.70))",
-        mostrarFrase: true,
-        mostrarNombre: true,
-        mostrarFecha: true,
-        boton: {
-          mostrar: true,
-          texto: "Ver invitación",
-          destino: "#historia"
-        },
-        moverCajaPC: { x: "0px", y: "0px" },
-        moverCajaMovil: { x: "0px", y: "0px" }
-      },
+<script>
+/* ==========================================================================
+   CONFIGURACION FACIL
+   Cambia tu marca, links, colores e invitaciones desde este bloque.
+========================================================================== */
+const CONFIG = {
+  marca: "ARTEVIDEOS",
+  logo: "logo.png",
 
-      diseno: {
-        paleta: "azul-cielo", // azul-cielo, azul-noche, azul-plata
-        fuenteTitulo: 12,
-        fuenteTexto: 13,
-        tamanoTitulo: "2.65rem",
-        tamanoTexto: "1.18rem",
-        espacioTituloTexto: "1.6rem",
-        espacioTextoBoton: "2rem",
-        radioBordes: "8px",
-        ornamentos: {
-          mostrar: true,
-          tipo: "tiara", // tiara, estrellas, floral, ondas, corona
-          tamano: 230,
-          opacidad: 0.14,
-          posiciones: ["top-left", "bottom-right"],
-          excluirSecciones: []
-        }
-      },
+  whatsappTexto: "Pedidos por Whatsapp 095090806",
+  whatsappLink: "https://wa.me/59895090806",
 
-      textos: {
-        tituloHistoria: "Llega la noche más soñada",
-        historia: "Después de tantos sueños, planes y emoción,<br> llegó el momento de celebrar una noche única.<br><br>Quiero que me acompañes a vivir una fiesta llena de momentos que recordaré para siempre."
-      },
+  // Cambia este link por tu Instagram. Ejemplo:
+  // instagramLink: "https://www.instagram.com/tu_usuario/",
+  instagramTexto: "Instagram",
+  instagramLink: "https://www.instagram.com/invitaciones_artevideos/",
 
-      cuentaRegresiva: {
-        mostrar: true,
-        titulo: "Falta poco"
-      },
+  colores: {
+  fondo: "#f8f4f1",
+  fondoSuperior: "#f4e7ea",
+  tarjeta: "#ffffff",
+  tarjetaSuave: "#faf7f5",
+  texto: "#2d2426",
+  textoSuave: "#6f5f63",
+  principal: "#d27a8c",
+  secundario: "#c89b5e",
+  textoBoton: "#ffffff"
+},
 
-      eventos: {
-        titulo: "Fecha y lugar",
-        ceremonia: {
-          mostrar: false,
-          titulo: "Ceremonia",
-          fecha: "20 de noviembre",
-          hora: "17:00 hs",
-          lugar: "Salón de Eventos Dream Palace",
-          direccion: "Camino Torres 3231, Montevideo",
-          mapa: "https://www.google.com/maps"
-        },
-        fiesta: {
-          mostrar: true,
-          titulo: "Fiesta",
-          fecha: "20 de noviembre",
-          hora: "21:00 hs",
-          lugar: "Salón de Eventos París Palace",
-          direccion: "Avda. Las Palmas 1212, Montevideo",
-          mapa: "https://www.google.com/maps"
-        }
-      },
+  categorias: [
+    { id: "todas", nombre: "Todas" },
+    { id: "15", nombre: "15 años" },
+    { id: "bodas", nombre: "Bodas" },
+    { id: "infantiles", nombre: "Infantiles" }
+  ],
 
-      galeria: {
-        mostrar: true,
-        titulo: "Mis recuerdos",
-        fotos: ["foto1.jpg", "foto2.jpg", "foto3.jpg", "foto4.jpg", "foto5.jpg", "foto6.jpg"]
-      },
-
-      confirmacion: {
-        mostrar: true,
-        titulo: "Confirmación",
-        texto: "Por favor, confirma tu asistencia antes del 10 de noviembre.",
-        boton: "Confirmar asistencia",
-        link: "https://wa.me/59899000000"
-      },
-
-      playlist: {
-        mostrar: true,
-        titulo: "Playlist",
-        texto: "Ayúdame a elegir las canciones que no pueden faltar.",
-        boton: "Sugerir canción",
-        link: "https://docs.google.com/forms/d/e/FORM_ID/viewform"
-      },
-
-      regalos: {
-        mostrar: true,
-        titulo: "Regalos",
-        texto: "El mejor regalo es que estés presente, pero si deseas colaborar con mis sueños, tienes la info aquí:",
-        boton: "Ver datos",
-        textoModal: "Datos de cuenta",
-        titular: "Sofía 15 años",
-        banco: "Santander",
-        cuenta: "1234567890",
-        ci: "1.234.567-8"
-      },
-
-      albumFotos: {
-        mostrar: true,
-        titulo: "Álbum de fotos",
-        texto: "Comparte aquí tus fotos favoritas de la fiesta.",
-        boton: "Subir fotos",
-        link: "https://docs.google.com/forms/d/XXXXX/viewform"
-      },
-
-      seccionLibre: {
-        mostrar: false,
-        titulo: "Sección libre",
-        texto: "Escribe aquí el contenido que quieras agregar.",
-        icono: "star"
-      },
-
-      cierre: {
-        mostrar: true,
-        titulo: "¡Te espero!",
-        texto: "Tu presencia es muy importante para mí.",
-        imagen: "cierre.png"
-      }
-    };
-
-    const FUENTES = {
-      1: "'Cormorant Garamond', serif",
-      2: "'Great Vibes', cursive",
-      3: "'Playfair Display', serif",
-      4: "'Jost', sans-serif",
-      5: "'Poppins', sans-serif",
-      6: "'Montserrat', sans-serif",
-      7: "'Quicksand', sans-serif",
-      8: "Georgia, serif",
-      9: "'Parisienne', cursive",
-      10: "'Allura', cursive",
-      11: "'Alex Brush', cursive",
-      12: "'Cinzel', serif",
-      13: "'Raleway', sans-serif",
-      14: "'Nunito', sans-serif"
-    };
-
-    const PALETAS = {
-      "azul-cielo": {
-        bg1: "#06173c",
-        bg2: "#0e4e91",
-        bg3: "#c7f3ff",
-        titulo: "#ecfbff",
-        texto: "#f7fcff",
-        muted: "rgba(247,252,255,0.78)",
-        accent: "#bfeeff",
-        accent2: "#73caff",
-        buttonText: "#052059"
-      },
-      "azul-noche": {
-        bg1: "#02091f",
-        bg2: "#082f68",
-        bg3: "#7ddcff",
-        titulo: "#f2fbff",
-        texto: "#edf8ff",
-        muted: "rgba(237,248,255,0.78)",
-        accent: "#8ddfff",
-        accent2: "#d7f8ff",
-        buttonText: "#041636"
-      },
-      "azul-plata": {
-        bg1: "#09213f",
-        bg2: "#3b85b6",
-        bg3: "#e7fbff",
-        titulo: "#ffffff",
-        texto: "#f3fbff",
-        muted: "rgba(243,251,255,0.78)",
-        accent: "#e7fbff",
-        accent2: "#9edfff",
-        buttonText: "#09213f"
-      }
-    };
-
-    const ICONOS = {
-      heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>',
-      calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
-      map: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5.5-8 12-8 12S4 15.5 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
-      camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z"/><circle cx="12" cy="13" r="4"/></svg>',
-      gift: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Zm0 0h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z"/></svg>',
-      music: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
-      star: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.9 6.2 6.8.8-5 4.7 1.3 6.7-6-3.4-6 3.4 1.3-6.7-5-4.7 6.8-.8L12 2Z"/></svg>'
-    };
-
-    const ORNAMENTOS = {
-      tiara: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 84 C34 54, 49 56, 60 74 C71 56, 86 54, 102 84"/><path d="M18 84 H102"/><circle cx="60" cy="74" r="4"/><circle cx="43" cy="70" r="3"/><circle cx="77" cy="70" r="3"/></svg>',
-      estrellas: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M60 12l7 25 25 7-25 7-7 25-7-25-25-7 25-7 7-25Z"/><path d="M25 76l4 12 12 4-12 4-4 12-4-12-12-4 12-4 4-12Z"/><path d="M94 72l3 10 10 3-10 3-3 10-3-10-10-3 10-3 3-10Z"/></svg>',
-      floral: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M60 108C46 84 38 64 60 12c22 52 14 72 0 96Z"/><path d="M60 72C42 62 28 48 18 26c24 5 42 20 42 46Z"/><path d="M60 72c18-10 32-24 42-46-24 5-42 20-42 46Z"/><path d="M60 98C44 92 30 83 16 66c22-2 39 7 44 32Z"/><path d="M60 98c16-6 30-15 44-32-22-2-39 7-44 32Z"/></svg>',
-      ondas: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 36c20-20 40 20 60 0s30-8 40 0"/><path d="M10 60c20-20 40 20 60 0s30-8 40 0"/><path d="M10 84c20-20 40 20 60 0s30-8 40 0"/></svg>',
-      corona: '<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 80 35 45 60 70 85 45 100 80Z"/><path d="M20 80h80"/><circle cx="35" cy="45" r="3"/><circle cx="60" cy="70" r="3"/><circle cx="85" cy="45" r="3"/></svg>'
-    };
-
-    const $ = (selector, scope = document) => scope.querySelector(selector);
-    const root = document.documentElement;
-    const main = $("#main-content");
-
-    function cssValue(value, fallback = "0px") {
-      if (value === undefined || value === null || value === "") return fallback;
-      return typeof value === "number" ? value + "px" : String(value);
+  invitaciones: [
+    {
+      nombre: "15 Años Mariposas-1",
+      categoria: "15",
+      imagen: "15 mariposas doradas.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo-3-mariposas-doradas/"
+    },
+    {
+      nombre: "15 Años Mariposas-2",
+      categoria: "15",
+      imagen: "15 mariposas violeta.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo-5-mariposas-fondo-azul-2/"
+    },
+    {
+      nombre: "15 Años Mariposas-3",
+      categoria: "15",
+      imagen: "15 mariposas celestes.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo-4-mariposas-celeste-amarillas/"
+    },
+     {
+       nombre: "15 Años Fotografía",
+      categoria: "15",
+      imagen: "15 foto1.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-a-os-foto/"
+    },
+     {
+       nombre: "15 Años Azul",
+      categoria: "15",
+      imagen: "azul.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-azul/"
+    },
+    {
+      nombre: "15 Años Stray Kids",
+      categoria: "15",
+      imagen: "15 straykids.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-straykids/"
+    },
+    {
+      nombre: "15 Años Floral-1",
+      categoria: "15",
+      imagen: "15 floral 1.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo1-flores-del-cerezo/"
+    },
+    {
+      nombre: "15 Años Floral-2",
+      categoria: "15",
+      imagen: "15 floral 2.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-modelo2-rosas/"
+    },
+    {
+      nombre: "15 Años Sobre-1",
+      categoria: "15",
+      imagen: "sobrerosa.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-sobre/#evento"
+    },
+    {
+      nombre: "15 Años Sobre-2",
+      categoria: "15",
+      imagen: "sobrelavanda.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/15-sobre-2/"
+    },
+    {
+      nombre: "Boda-1",
+      categoria: "bodas",
+      imagen: "bodas 1.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/Bodas-invitacion-interactiva/"
+    },
+    {
+      nombre: "Boda-2",
+      categoria: "bodas",
+      imagen: "boda2.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/bodas-invitacion-interactiva-2/"
+    },
+    {
+      nombre: "Safari ",
+      categoria: "infantiles",
+      imagen: "cover.png",
+      link: "https://invitaciones-interactivas-artevideos.github.io/PRIMER-A-O-SAFARI/"
+    },
+    {
+      nombre: "Infantil Arcoiris",
+      categoria: "infantiles",
+      imagen: "",
+      link: ""
     }
+  ]
+};
 
-    function setText(selector, value, visible = true) {
-      const element = $(selector);
-      if (!element) return;
-      element.hidden = !visible;
-      element.textContent = value || "";
-    }
+const tabsEl = document.getElementById("category-tabs");
+const gridEl = document.getElementById("invitation-grid");
+const titleEl = document.getElementById("catalog-title");
+const countEl = document.getElementById("catalog-count");
+const emptyEl = document.getElementById("empty-state");
+const topBtn = document.getElementById("back-to-top");
+let categoriaActual = "todas";
 
-    function applyDesign() {
-      const palette = PALETAS[CONFIG.diseno.paleta] || PALETAS["azul-cielo"];
-      root.style.setProperty("--bg-1", palette.bg1);
-      root.style.setProperty("--bg-2", palette.bg2);
-      root.style.setProperty("--bg-3", palette.bg3);
-      root.style.setProperty("--title-color", palette.titulo);
-      root.style.setProperty("--text-color", palette.texto);
-      root.style.setProperty("--muted-color", palette.muted);
-      root.style.setProperty("--accent", palette.accent);
-      root.style.setProperty("--accent-2", palette.accent2);
-      root.style.setProperty("--button-text", palette.buttonText);
-      root.style.setProperty("--title-font", FUENTES[CONFIG.diseno.fuenteTitulo] || FUENTES[12]);
-      root.style.setProperty("--body-font", FUENTES[CONFIG.diseno.fuenteTexto] || FUENTES[13]);
-      root.style.setProperty("--title-size", CONFIG.diseno.tamanoTitulo || "2.65rem");
-      root.style.setProperty("--body-size", CONFIG.diseno.tamanoTexto || "1.18rem");
-      root.style.setProperty("--title-gap", CONFIG.diseno.espacioTituloTexto || "1.6rem");
-      root.style.setProperty("--text-button-gap", CONFIG.diseno.espacioTextoBoton || "2rem");
-      root.style.setProperty("--radius", CONFIG.diseno.radioBordes || "8px");
-      root.style.setProperty("--cover-position-pc", CONFIG.portada.posicionFotoPC || "center 45%");
-      root.style.setProperty("--cover-position-mobile", CONFIG.portada.posicionFotoMovil || "center 50%");
-      root.style.setProperty("--cover-x", cssValue(CONFIG.portada.moverCajaPC?.x));
-      root.style.setProperty("--cover-y", cssValue(CONFIG.portada.moverCajaPC?.y));
-      root.style.setProperty("--cover-x-mobile", cssValue(CONFIG.portada.moverCajaMovil?.x));
-      root.style.setProperty("--cover-y-mobile", cssValue(CONFIG.portada.moverCajaMovil?.y));
-      $("#cover-overlay").style.background = CONFIG.portada.oscurecer || "";
-    }
+function aplicarColores() {
+  const root = document.documentElement;
+  const colores = CONFIG.colores || {};
+  const variables = {
+    fondo: "--bg",
+    fondoSuperior: "--bg-2",
+    tarjeta: "--panel",
+    tarjetaSuave: "--panel-soft",
+    texto: "--text",
+    textoSuave: "--muted",
+    principal: "--accent",
+    secundario: "--accent-2",
+    textoBoton: "--button-text"
+  };
 
-    function applyCover() {
-      setText("#cover-kicker", CONFIG.global.frase, CONFIG.portada.mostrarFrase !== false);
-      setText("#cover-title", CONFIG.global.nombres, CONFIG.portada.mostrarNombre !== false);
-      setText("#cover-date", CONFIG.global.fecha, CONFIG.portada.mostrarFecha !== false);
+  Object.entries(variables).forEach(([nombre, variable]) => {
+    if (colores[nombre]) root.style.setProperty(variable, colores[nombre]);
+  });
+}
 
-      const button = $("#cover-btn");
-      button.hidden = CONFIG.portada.boton?.mostrar === false;
-      button.textContent = CONFIG.portada.boton?.texto || "Ver invitación";
-      button.href = CONFIG.portada.boton?.destino || "#historia";
+document.getElementById("brand-name").textContent = CONFIG.marca;
+document.getElementById("logo").src = CONFIG.logo;
+document.getElementById("whatsapp-top").textContent = CONFIG.whatsappTexto;
+document.getElementById("whatsapp-top").href = CONFIG.whatsappLink;
+document.getElementById("footer-whatsapp").textContent = CONFIG.whatsappTexto;
+document.getElementById("instagram-top").textContent = CONFIG.instagramTexto;
+document.getElementById("instagram-top").href = CONFIG.instagramLink;
+document.getElementById("instagram-footer").textContent = CONFIG.instagramTexto;
+document.getElementById("instagram-footer").href = CONFIG.instagramLink;
 
-      const bg = $("#cover-bg");
-      const video = $("#cover-video");
-      const type = CONFIG.portada.tipo || "auto";
-      const useVideo = type === "video" || (type === "auto" && CONFIG.portada.video);
-      const usePhoto = type === "foto" || (type === "auto" && CONFIG.portada.foto);
+function nombreCategoria(id) {
+  const categoria = CONFIG.categorias.find(item => item.id === id);
+  return categoria ? categoria.nombre : id;
+}
 
-      video.classList.remove("is-ready");
-      bg.classList.remove("is-loaded");
-      video.removeAttribute("src");
+function invitacionesFiltradas() {
+  if (categoriaActual === "todas") return CONFIG.invitaciones;
+  return CONFIG.invitaciones.filter(item => item.categoria === categoriaActual);
+}
 
-      if (useVideo) {
-        video.src = CONFIG.portada.video;
-        video.addEventListener("canplay", () => video.classList.add("is-ready"), { once: true });
-        video.addEventListener("error", () => loadCoverPhoto(bg, usePhoto), { once: true });
-        video.load();
-        video.play().catch(() => loadCoverPhoto(bg, usePhoto));
-        return;
-      }
+function crearTabs() {
+  tabsEl.innerHTML = "";
+  CONFIG.categorias.forEach(categoria => {
+    const boton = document.createElement("button");
+    boton.className = "category-tab";
+    boton.type = "button";
+    boton.textContent = categoria.nombre;
+    boton.dataset.category = categoria.id;
+    boton.addEventListener("click", () => {
+      categoriaActual = categoria.id;
+      renderCatalogo();
+      document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    tabsEl.appendChild(boton);
+  });
+}
 
-      loadCoverPhoto(bg, usePhoto);
-    }
+function crearTarjeta(item) {
+  const article = document.createElement("article");
+  article.className = "invite-card";
+  article.innerHTML = `
+    <a class="preview-link" href="${item.link}" target="_blank" rel="noopener" aria-label="Probar demo de ${item.nombre}">
+      <span class="category-chip">${nombreCategoria(item.categoria)}</span>
+      <img src="${item.imagen}" alt="Vista previa de ${item.nombre}" loading="lazy">
+      <span class="preview-fallback">${item.nombre}</span>
+    </a>
+    <div class="card-info">
+      <h3 class="invite-title">${item.nombre}</h3>
+      <a class="demo-btn" href="${item.link}" target="_blank" rel="noopener">Probar demo</a>
+    </div>
+  `;
 
-    function loadCoverPhoto(bg, usePhoto) {
-      if (!usePhoto) return;
-      const image = new Image();
-      image.onload = () => {
-        bg.style.backgroundImage = "url('" + CONFIG.portada.foto + "')";
-        bg.classList.add("is-loaded");
-      };
-      image.onerror = () => bg.classList.remove("is-loaded");
-      image.src = CONFIG.portada.foto;
-    }
+  const imagen = article.querySelector("img");
+  imagen.addEventListener("error", () => {
+    article.querySelector(".preview-link").classList.add("image-error");
+  });
 
-    function createSection(id, icon, title, bodyHTML, options = {}) {
-      if (options.mostrar === false) return null;
-      const section = document.createElement("section");
-      section.id = id;
-      section.innerHTML =
-        '<div class="section-inner">' +
-        '<div class="icon-container" aria-hidden="true">' + (ICONOS[icon] || ICONOS.star) + '</div>' +
-        '<h2>' + title + '</h2>' +
-        '<div class="section-body">' + bodyHTML + '</div>' +
-        '</div>';
-      main.appendChild(section);
-      return section;
-    }
+  return article;
+}
 
-    function renderSections() {
-      createSection("historia", "heart", CONFIG.textos.tituloHistoria, "<p>" + CONFIG.textos.historia + "</p>");
+function renderCatalogo() {
+  const items = invitacionesFiltradas();
+  gridEl.innerHTML = "";
 
-      if (CONFIG.cuentaRegresiva.mostrar) {
-        createSection("cuenta", "calendar", CONFIG.cuentaRegresiva.titulo, (
-          '<div class="countdown-grid">' +
-          '<div class="cd-item"><span class="cd-num" id="days">00</span><span class="cd-lab">Días</span></div>' +
-          '<div class="cd-item"><span class="cd-num" id="hours">00</span><span class="cd-lab">Horas</span></div>' +
-          '<div class="cd-item"><span class="cd-num" id="mins">00</span><span class="cd-lab">Minutos</span></div>' +
-          '<div class="cd-item"><span class="cd-num" id="secs">00</span><span class="cd-lab">Segundos</span></div>' +
-          '</div>'
-        ));
-      }
+  document.querySelectorAll(".category-tab").forEach(tab => {
+    tab.classList.toggle("active", tab.dataset.category === categoriaActual);
+  });
 
-      const eventCards = [CONFIG.eventos.ceremonia, CONFIG.eventos.fiesta]
-        .filter((event) => event && event.mostrar)
-        .map((event) => (
-          '<article class="event-card glass">' +
-          '<h3>' + event.titulo + '</h3>' +
-          '<p>' + event.fecha + ' · ' + event.hora + '<br>' + event.lugar + '<br>' + event.direccion + '</p>' +
-          '<a class="btn" target="_blank" rel="noopener" href="' + event.mapa + '">Ver mapa</a>' +
-          '</article>'
-        ))
-        .join("");
-      if (eventCards) createSection("ubicacion", "map", CONFIG.eventos.titulo, '<div class="event-grid">' + eventCards + '</div>');
+  titleEl.textContent = nombreCategoria(categoriaActual);
+  countEl.textContent = `${items.length} modelo${items.length === 1 ? "" : "s"} disponible${items.length === 1 ? "" : "s"}`;
+  emptyEl.style.display = items.length ? "none" : "block";
 
-      if (CONFIG.galeria.mostrar) {
-        const galleryHTML = '<div class="gallery-grid" id="gallery-grid"></div>';
-        createSection("galeria", "camera", CONFIG.galeria.titulo, galleryHTML);
-        renderGallery();
-      }
+  items.forEach(item => gridEl.appendChild(crearTarjeta(item)));
+}
 
-      createActionSection("rsvp", "star", CONFIG.confirmacion);
-      createActionSection("playlist", "music", CONFIG.playlist);
+window.addEventListener("scroll", () => {
+  topBtn.classList.toggle("visible", window.scrollY > 500);
+});
 
-      if (CONFIG.regalos.mostrar) {
-        createSection("regalos", "gift", CONFIG.regalos.titulo, '<p>' + CONFIG.regalos.texto + '</p><button class="btn" type="button" data-open-gifts>' + CONFIG.regalos.boton + '</button>');
-      }
+topBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 
-      createActionSection("album-fotos", "camera", CONFIG.albumFotos);
-
-      if (CONFIG.seccionLibre.mostrar) {
-        createSection("seccion-libre", CONFIG.seccionLibre.icono || "star", CONFIG.seccionLibre.titulo, "<p>" + CONFIG.seccionLibre.texto + "</p>");
-      }
-
-      if (CONFIG.cierre.mostrar) {
-        const imageHTML = CONFIG.cierre.imagen ? '<img class="closing-image" src="' + CONFIG.cierre.imagen + '" alt="Imagen de cierre" onerror="this.remove()">' : "";
-        createSection("cierre", "heart", CONFIG.cierre.titulo, "<p>" + CONFIG.cierre.texto + "</p>" + imageHTML);
-      }
-    }
-
-    function createActionSection(id, icon, config) {
-      if (!config || config.mostrar === false) return;
-      createSection(id, icon, config.titulo, '<p>' + config.texto + '</p><a class="btn" target="_blank" rel="noopener" href="' + config.link + '">' + config.boton + '</a>');
-    }
-
-    function renderGallery() {
-      const grid = $("#gallery-grid");
-      if (!grid) return;
-      (CONFIG.galeria.fotos || []).forEach((src, index) => {
-        const button = document.createElement("button");
-        button.className = "gallery-item";
-        button.type = "button";
-        button.setAttribute("aria-label", "Ver foto " + (index + 1));
-
-        const image = document.createElement("img");
-        image.alt = "Foto " + (index + 1);
-        image.loading = "lazy";
-        image.src = src;
-        image.onerror = () => {
-          button.innerHTML = '<span class="gallery-placeholder">Foto ' + (index + 1) + '</span>';
-        };
-
-        button.appendChild(image);
-        button.addEventListener("click", () => openLightbox(src, image.alt));
-        grid.appendChild(button);
-      });
-    }
-
-    function applyOrnaments() {
-      const config = CONFIG.diseno.ornamentos || {};
-      if (!config.mostrar) return;
-      const svg = ORNAMENTOS[config.tipo] || ORNAMENTOS.tiara;
-      const excluded = config.excluirSecciones || [];
-      document.querySelectorAll("section").forEach((section) => {
-        if (excluded.includes(section.id)) return;
-        (config.posiciones || ["top-left", "bottom-right"]).forEach((position) => {
-          const ornament = document.createElement("div");
-          ornament.className = "ornament orn-" + position;
-          ornament.style.width = cssValue(config.tamano || 230);
-          ornament.style.height = cssValue(config.tamano || 230);
-          ornament.style.opacity = config.opacidad ?? 0.14;
-          ornament.innerHTML = svg;
-          section.appendChild(ornament);
-        });
-      });
-    }
-
-    function setupMusic() {
-      const audio = $("#bg-music");
-      const button = $("#music-btn");
-      if (!CONFIG.global.mostrarMusica || !CONFIG.global.musica) {
-        button.hidden = true;
-        return;
-      }
-      audio.src = CONFIG.global.musica;
-      button.addEventListener("click", async () => {
-        try {
-          if (audio.paused) {
-            await audio.play();
-            button.classList.add("is-playing");
-          } else {
-            audio.pause();
-            button.classList.remove("is-playing");
-          }
-        } catch (error) {
-          showToast("No se pudo reproducir la música");
-        }
-      });
-    }
-
-    function updateCountdown() {
-      const target = new Date(CONFIG.global.fechaCuenta);
-      const diff = target.getTime() - Date.now();
-      const safeDiff = Math.max(0, diff);
-      const parts = {
-        days: Math.floor(safeDiff / 86400000),
-        hours: Math.floor((safeDiff / 3600000) % 24),
-        mins: Math.floor((safeDiff / 60000) % 60),
-        secs: Math.floor((safeDiff / 1000) % 60)
-      };
-      Object.entries(parts).forEach(([id, value]) => {
-        const node = $("#" + id);
-        if (node) node.textContent = String(value).padStart(2, "0");
-      });
-    }
-
-    function openGiftModal() {
-      $("#gift-title").textContent = CONFIG.regalos.textoModal || "Datos de cuenta";
-      $("#gift-data").innerHTML = [
-        ["Titular", CONFIG.regalos.titular],
-        ["Banco", CONFIG.regalos.banco],
-        ["Cuenta", CONFIG.regalos.cuenta],
-        ["CI", CONFIG.regalos.ci]
-      ].map(([label, value]) => (
-        '<div class="data-row"><span class="data-label">' + label + '</span><span class="data-value">' + (value || "") + '</span></div>'
-      )).join("");
-      $("#gift-modal").classList.add("open");
-    }
-
-    function closeGiftModal() {
-      $("#gift-modal").classList.remove("open");
-    }
-
-    async function copyAccount() {
-      try {
-        await navigator.clipboard.writeText(CONFIG.regalos.cuenta || "");
-        showToast("Cuenta copiada");
-      } catch (error) {
-        showToast("No se pudo copiar");
-      }
-    }
-
-    function openLightbox(src, alt) {
-      const lightbox = $("#lightbox");
-      const image = $("#lightbox img");
-      image.src = src;
-      image.alt = alt || "Foto ampliada";
-      lightbox.classList.add("open");
-    }
-
-    function closeLightbox() {
-      $("#lightbox").classList.remove("open");
-      $("#lightbox img").removeAttribute("src");
-    }
-
-    function showToast(message) {
-      const toast = $("#toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      window.clearTimeout(showToast.timer);
-      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2200);
-    }
-
-    function setupInteractions() {
-      document.addEventListener("click", (event) => {
-        if (event.target.matches("[data-open-gifts]")) openGiftModal();
-        if (event.target.matches("#gift-modal, #gift-modal .close-btn")) closeGiftModal();
-        if (event.target.matches("#lightbox, #lightbox .close-btn")) closeLightbox();
-      });
-      $("#copy-account").addEventListener("click", copyAccount);
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-          closeGiftModal();
-          closeLightbox();
-        }
-      });
-    }
-
-    function revealOnScroll() {
-      const sections = document.querySelectorAll("section");
-      if (!("IntersectionObserver" in window)) {
-        sections.forEach((section) => section.classList.add("visible"));
-        return;
-      }
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-      sections.forEach((section) => observer.observe(section));
-    }
-
-    function init() {
-      applyDesign();
-      applyCover();
-      renderSections();
-      applyOrnaments();
-      setupMusic();
-      setupInteractions();
-      updateCountdown();
-      window.setInterval(updateCountdown, 1000);
-      revealOnScroll();
-    }
-
-    document.addEventListener("DOMContentLoaded", init);
-  </script>
+aplicarColores();
+crearTabs();
+renderCatalogo();
+</script>
 </body>
 </html>
