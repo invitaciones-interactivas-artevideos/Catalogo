@@ -66,13 +66,13 @@ a {
 }
 
 .topbar-inner {
-  min-height: 116px;
+  min-height: 70px; /* Altura reducida */
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Esto asegura que el logo y el texto queden alineados prolijamente */
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 12px 0;
+  padding: 10px 0;
 }
 
 .brand {
@@ -429,7 +429,7 @@ a {
   }
 
   .topbar-inner {
-    min-height: 110px;
+    min-height: 60px;
   }
 
   .brand-logo {
@@ -473,7 +473,7 @@ a {
   }
 
   .topbar-inner {
-    min-height: 126px;
+    min-height: 60px;
   }
 
   .brand {
@@ -517,11 +517,7 @@ a {
         <span class="brand-name" id="brand-name"></span>
         <span class="brand-subtitle">Invitaciones interactivas</span>
       </div>
-    </div>
-    <div class="top-actions">
-      <a class="top-link primary" id="whatsapp-top" href="#" target="_blank" rel="noopener">Pedidos por Whatsapp</a>
-      <a class="top-link" id="instagram-top" href="#" target="_blank" rel="noopener">Instagram</a>
-    </div>
+   
   </div>
 </header>
 
@@ -747,11 +743,9 @@ function aplicarColores() {
 
 document.getElementById("brand-name").textContent = CONFIG.marca;
 document.getElementById("logo").src = CONFIG.logo;
-document.getElementById("whatsapp-top").textContent = CONFIG.whatsappTexto;
-document.getElementById("whatsapp-top").href = CONFIG.whatsappLink;
+
 document.getElementById("footer-whatsapp").textContent = CONFIG.whatsappTexto;
-document.getElementById("instagram-top").textContent = CONFIG.instagramTexto;
-document.getElementById("instagram-top").href = CONFIG.instagramLink;
+
 document.getElementById("instagram-footer").textContent = CONFIG.instagramTexto;
 document.getElementById("instagram-footer").href = CONFIG.instagramLink;
 
